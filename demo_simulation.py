@@ -38,16 +38,16 @@ def calculate_battery_score(voltage, temperature):
 # STATE MAPPING
 # ==========================================
 
-def get_state(voltage, health_score):
+def get_state(voltage, health_score, grid_load):
 
-    if voltage < 11.5 and health_score > 70:
-        return 0  # Low voltage + Good health
-    elif voltage < 11.5 and health_score <= 70:
-        return 1  # Low voltage + Poor health
-    elif voltage >= 11.5 and health_score > 70:
-        return 2  # Normal voltage + Good health
+    if grid_load > 80 and health_score > 70:
+        return 0
+    elif grid_load > 80 and health_score <= 70:
+        return 1
+    elif grid_load <= 80 and health_score > 70:
+        return 2
     else:
-        return 3  # Normal voltage + Poor health
+        return 3
 
 # ==========================================
 # ACTION SELECTION
@@ -71,7 +71,7 @@ for step in range(20):
     grid_load = random.randint(40, 100)
 
     health_score = calculate_battery_score(battery_voltage, temperature)
-    state = get_state(battery_voltage, health_score)
+    state = get_state(battery_voltage, health_score, grid_load)
     action = choose_action(state)
 
     if action == 1:

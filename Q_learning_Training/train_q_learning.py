@@ -31,26 +31,33 @@ episodes = 3000
 # ----------------------------
 def get_reward(state, action):
 
-    # Low voltage + good health → Allow is good
-    if state == 0 and action == 1:
-        return 15
+    # State 0: High demand + Good health
+    if state == 0:
+        if action == 1:   # Allow
+            return 20     # Very good
+        else:
+            return -5     # Bad (grid needed help)
 
-    # Low voltage + poor health → Allow is bad
-    if state == 1 and action == 1:
-        return -20
+    # State 1: High demand + Poor health
+    if state == 1:
+        if action == 0:   # Block
+            return 10
+        else:
+            return -20
 
-    # Normal voltage → No need to discharge
-    if state == 2 and action == 1:
-        return -5
+    # State 2: Low demand + Good health
+    if state == 2:
+        if action == 0:
+            return 10
+        else:
+            return -5
 
-    if state == 3 and action == 1:
-        return -25
-
-    # Blocking is generally safe
-    if action == 0:
-        return 5
-
-    return 0
+    # State 3: Low demand + Poor health
+    if state == 3:
+        if action == 0:
+            return 15
+        else:
+            return -25
 
 
 # ----------------------------
