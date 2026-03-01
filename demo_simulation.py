@@ -88,11 +88,18 @@ for step in range(20):
     print(f"Voltage: {round(battery_voltage,2)} V")
     print(f"Temperature: {round(temperature,2)} °C")
     print(f"Battery Health Score: {round(health_score,2)}")
-    print(f"Grid Load: {grid_load}%")
-    print(f"Decision: {decision}")
-    print("-" * 40)
+if grid_load > 80:
+    demand_state = "HIGH DEMAND"
+elif grid_load > 60:
+    demand_state = "MODERATE DEMAND"
+else:
+    demand_state = "LOW DEMAND"
 
-    time.sleep(1)
+print(f"Grid Demand: {grid_load}% ({demand_state})")
+print(f"Decision: {decision}")
+print("-" * 40)
+
+time.sleep(1)
 
 # ==========================================
 # PLOT RESULTS
