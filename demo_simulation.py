@@ -84,20 +84,23 @@ for step in range(20):
     battery_voltage = max(10.5, min(12.6, battery_voltage))
     battery_levels.append(battery_voltage)
 
-    print(f"Step {step+1}")
+    print(f"\nStep {step+1}")
     print(f"Voltage: {round(battery_voltage,2)} V")
     print(f"Temperature: {round(temperature,2)} °C")
     print(f"Battery Health Score: {round(health_score,2)}")
-if grid_load > 80:
-    demand_state = "HIGH DEMAND"
-elif grid_load > 60:
-    demand_state = "MODERATE DEMAND"
-else:
-    demand_state = "LOW DEMAND"
 
-print(f"Grid Demand: {grid_load}% ({demand_state})")
-print(f"Decision: {decision}")
-print("-" * 40)
+    if grid_load > 80:
+        demand_state = "HIGH DEMAND"
+    elif grid_load > 60:
+        demand_state = "MODERATE DEMAND"
+    else:
+        demand_state = "LOW DEMAND"
+
+    print(f"Grid Demand: {grid_load}% ({demand_state})")
+    print(f"Decision: {decision}")
+    print("-" * 40)
+
+    time.sleep(1)
 
 time.sleep(1)
 
